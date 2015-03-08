@@ -1,13 +1,15 @@
 
 var Integrals = {
 	/*
-	 * Función que calcula la integral dado uno de los dos métodos (simpson, trapezium)
+	 * Function that calculates the integral given the simpson or trapezium
+	 * method.
 	 * 
-	 * @param {Function} f
-	 * @param {Number, BigNumber} a
-	 * @param {Number, BigNumber} b
-	 * @param {Number, BigNumber} M
-	 * @param {String} method
+	 * @param {Function} f - Function that we want to calculate the integral
+	 * @param {Number|BigNumber} a - Lower limit of the integral
+	 * @param {Number|BigNumber} b - Higher limit of the integral.
+	 * @param {Number|BigNumber} M - Number of partitions to calculate the integral.
+	 * @param {String} method - Method by which we want to calculate the integral (must be "trapezium" or "simpson").
+	 * @return {Number|BigNumber} Integral - The result of the integral.
 	 * 
 	 * */
 	integrate : function(f, a, b, M, method) {
@@ -22,15 +24,14 @@ var Integrals = {
 	},
 	
 	/*
-	 * Función que calcula la integral por medio de la regla del trapecio
-	 * compuesta dado un número de subintervalos M
+	 * Function that calculates the integral through the composite trapezoidal rule
+	 * with a given M subintervals.
 	 * 
-	 * @param {Function} f
-	 * @param {Number, BigNumber} a
-	 * @param {Number, BigNumber} b
-	 * @param {Number, BigNumber} M
-	 * 
-	 * @return {Number, BigNumber} integral
+	 * @param {Function} f - Function that we want to calculate the integral
+     * @param {Number|BigNumber} a - Lower limit of the integral
+     * @param {Number|BigNumber} b - Higher limit of the integral.
+     * @param {Number|BigNumber} M - Number of partitions to calculate the integral.
+	 * @return {Number|BigNumber} integral - Result of the integral by the compose trapezium rule
 	 * */
 	
 	trapezoidalRule : function(f, a, b, M) {
@@ -46,18 +47,20 @@ var Integrals = {
 	},
 	
 	/*
-	 * Función que calcula la integral por medio de la regla de Simpson
-	 * dado un número impar de subintervalos M
+	 *
+	 * Function that calculate the integral through the composite Simpson rule
+	 * with a given M subintervals (M must be odd).
 	 * 
-	 * @param {Function} f
-	 * @param {Number, BigNumber} a
-	 * @param {Number, BigNumber} b
-	 * @param {Number, BigNumber} M
-	 * @return {Number, BigNumber} integral
+     * @param {Function} f - Function that we want to calculate the integral
+     * @param {Number|BigNumber} a - Lower limit of the integral
+     * @param {Number|BigNumber} b - Higher limit of the integral.
+     * @param {Number|BigNumber} M - Number of partitions to calculate the integral (must be odd).
+     * @return {Number|BigNumber} integral - Result of the integral by the compose trapezium rule
 	 * 
 	 * */
 	
 	simpsonRule : function(f, a, b, M) {
+        // TODO: change the way that check the parity of M
 		if(M % 2 == 0) {
 			throw "the simpson rule requires an odd number of subintervals";
 		}
@@ -78,4 +81,4 @@ var Integrals = {
 		var numerator = math.multiply(h, math.add(firstSum, math.add(secondSum, thirdSum)));
 		return math.divide(numerator, 3);
 	}
-}
+};

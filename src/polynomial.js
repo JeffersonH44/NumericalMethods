@@ -1,17 +1,18 @@
 /*
  * 
  * */
-polynomial = { 
+Polynomial = {
 		
-	/* 
-	 * Función que dada una constantes devuelve un función de la 
-	 * forma y = c0 + c1*x + c2*x^2 + ... + cn*x^n que se puede
-	 * evaluar de la forma f(x).
+	/*
+	 * Function that given a constant returns a function in the form
+	 * y = c0 + c1*x + c2*x^2 + ... + cn*x^n, which cam be evaluate at
+	 * the form f(x).
 	 * 
-	 * @param {Vector} constants 
-	 * 
+	 * @param {Vector} constants - Constants of the function
+	 * @return {Function} f - function in the form y = c0 + c1*x + c2*x^2 + ... + cn*x^n
 	 * */
-	poly: function(constants) {
+    // TODO: support for mathjs vectors
+ 	poly: function(constants) {
 		var constantsReverse = constants.reverse();
 		var func = 'f(x) = ';
 		for(var i = 0; i < constants.length; ++i){
@@ -26,4 +27,4 @@ polynomial = {
 		}
 		return math.eval(func);
 	}
-}
+};

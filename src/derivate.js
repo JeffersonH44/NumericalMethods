@@ -1,21 +1,22 @@
 /**
  * 
  */
-derivate = {
+Derivate = {
 	/* 
 	 * 
-	 * Esta función recibe dos vectores de coordenadas X's y Y's, la posición en el 
-	 * vector donde queremos sacar la derivada, el numero de la derivada y el h a
-	 * usar en la fórmula y devuelve la derivada en el punto Position con las fórmulas
-	 * de diferencias centradas según el número proporcionado en fórmula.
+	 * This function recieves the X's and Y's vectors of the same size, the
+	 * position of the vector that we want to derivate, the degree of the derivative,
+	 * the h coefficient of the centered differences and the formula we want.
+	 *
+	 * Return the derivate at the selected point in the vector.
 	 * 
-	 * @param {Vector} X
-	 * @param {Vector} Y
-	 * @param {Number} position
-	 * @param {Number} derivate
-	 * @param {Number} h
-	 * @param {Number} formula
-	 * @param {Number} derivate
+	 * @param {Vector} X - Vector of the x positions of the points.
+	 * @param {Vector} Y - Vector of the y positions of the points.
+	 * @param {Number} position - Position at the vector that we want the derivative.
+	 * @param {Number} derivate - Degree of derivative, must be a number in range 1 to 4.
+	 * @param {Number} h - h coefficient of the centered differences formula.
+	 * @param {Number} formula - exponent coefficient of the centered differences formula, must be 2 or 4.
+	 * @return {Number|BigNumber} derivate - Derivate at the point position in the vectors X's and Y's.
 	 * 
 	 * */	
 	derivate : function(X, Y, position, derivate, h, formula) {
@@ -29,7 +30,15 @@ derivate = {
 		}
 	},
 	/*
-	 * Función que retorna un vector con las posiciones respectivas para las diferencias centradas
+	 *
+	 * Function that returns a vector with the needed positions to make the derivative
+	 * with the centered differences formula.
+	 *
+	 * @param {Vector} X - Vector of the x positions of the points.
+     * @param {Vector} Y - Vector of the y positions of the points.
+     * @param {Number} position - Position at the vector that we want the derivative.
+     * @param {Number} h - h coefficient of the centered differences formula.
+     * @return {Vector} values - Values needed to calculate the centered differences formula.
 	 * 
 	 * */	
 	_getPositions : function(X, Y, position, h) {
@@ -59,17 +68,20 @@ derivate = {
 		return values;
 	},
 	/*
-	 * Esta función recibe dos vectores de coordenadas X's y Y's, la posición en el 
-	 * vector donde queremos sacar la derivada, el numero de la derivada y el h a
-	 * usar en la fórmula y devuelve la derivada en el punto Position con las fórmulas
-	 * de diferencias centradas O(h^2).
-	 * 
-	 * 
-	 * @param {Vector} Y
-	 * @param {Number} position
-	 * @param {Number} derivate
-	 * @param {Number} h
-	 * @return {Number} derivada en el punto "Position"
+	 * This function recieves the X's and Y's vectors of the same size, the
+     * position of the vector that we want to derivate, the degree of the derivative,
+     * the h coefficient of the centered differences.
+     *
+     * Returns the derivative at the point position with the
+     * O(h^2) centered differences formula.
+     *
+	 * @param {Vector} X - Vector of the x positions of the points.
+	 * @param {Vector} Y - Vector of the y positions of the points.
+	 * @param {Number} position - Position at the vector that we want the derivative.
+	 * @param {Number} derivate - Degree of derivative, must be a number in range 1 to 4.
+	 * @param {Number} h - h coefficient of the centered differences formula.
+	 * @return {Number|BigNumber} detivate - Derivate at the point position in the vectors X's and Y's.
+	 *
 	 * */
 	centeredDifferencesH2 : function(X, Y, position, derivate, h) {
 		var size = math.subset(math.size(Y), math.index(0));
@@ -122,17 +134,19 @@ derivate = {
 	},
 	
 	/*
-	 * Esta función recibe dos vectores de coordenadas X's y Y's, la posición en el 
-	 * vector donde queremos sacar la derivada, el numero de la derivada y el h a
-	 * usar en la fórmula y devuelve la derivada en el punto Position con las fórmulas
-	 * de diferencias centradas O(h^4).
-	 * 
-	 * 
-	 * @param {Vector} Y
-	 * @param {Number} position
-	 * @param {Number} derivate
-	 * @param {Number} h
-	 * @return {Number} derivate en el punto "Position"
+     * This function recieves the X's and Y's vectors of the same size, the
+     * position of the vector that we want to derivate, the degree of the derivative,
+     * the h coefficient of the centered differences.
+     *
+     * Returns the derivative at the point position with the
+     * O(h^4) centered differences formula.
+     *
+     * @param {Vector} X - Vector of the x positions of the points.
+     * @param {Vector} Y - Vector of the y positions of the points.
+     * @param {Number} position - Position at the vector that we want the derivative.
+     * @param {Number} derivate - Degree of derivative, must be a number in range 1 to 4.
+     * @param {Number} h - h coefficient of the centered differences formula.
+     * @return {Number|BigNumber} detivate - Derivate at the point position in the vectors X's and Y's.
 	 * */
 	
 	centeredDifferencesH4 : function(X, Y, position, derivate, h) {
@@ -193,4 +207,4 @@ derivate = {
 		}
 		return math.divide(numerator, denominator);
 	}
-}
+};

@@ -1,14 +1,14 @@
 /**
  * 
  */
-interpolate = {
+Interpolate = {
 	
 	/*
-	 * Función que devuelve un polinomio interpolador de Lagrange que
-	 * se puede evaluar de la forma f(x)
+	 * Function that return the Lagrange interpolating polynomial function.
 	 * 
-	 * @param {Vector} X
-	 * @param {Vector} Y
+	 * @param {Vector} X - Vector of the x positions of the points.
+	 * @param {Vector} Y - Vector of the y positions of the points.
+	 * @return {function} function - Function that interpolate the given points.
 	 * 
 	 * */	
 	
@@ -40,19 +40,22 @@ interpolate = {
 				}
 			}
 		}
+        //TODO: remove alert
 		alert(func);
 		return math.eval(func);
 		
 	},
 	
 	/*
-	 * función que devuelve los coeficientes del polinomio interpolador de Newton
-	 * 
-	 * @param {Vector} X
-	 * @param {Vector} Y
-	 * @return {Vector} coefficients
+	 * Function that returns the coefficients of the Newton interpolating polynomial.
+	 *
+	 * @param {Vector} X - Vector of the x positions of the points.
+     * @param {Vector} Y - Vector of the y positions of the points.
+	 * @return {Vector} coefficients - Coefficients of the interpolating polynomial given from lower to higher order of
+	   * the polynomial.
 	 * */
-	newton : function(X, Y) {
+
+ 	newton : function(X, Y) {
 		var lengthX = math.subset(math.size(X), math.index(0));
 		var D = math.zeros(lengthX, lengthX);
 		D = math.subset(D, math.index([0, lengthX], 0), math.transpose(Y));
@@ -63,6 +66,7 @@ interpolate = {
 				D = math.subset(D, math.index(k, j), numerator / denominator);
 			}
 		}
+        // TODO: remove alert
 		alert(D);
 		var coefficients = math.zeros(lengthX);
 		for(var i = 0; i < lengthX; ++i) {
@@ -71,4 +75,4 @@ interpolate = {
 		}
 		return coefficients;
 	}
-}
+};

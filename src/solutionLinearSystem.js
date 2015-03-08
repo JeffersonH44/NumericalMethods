@@ -2,36 +2,35 @@
  * 
  */
 
-solutionLinearSystem = {
+SolutionLinearSystem = {
 		
 	/*
+	 * Function that given a column vector and the maximum of that vector,
+	 * returns the index where is it, if there are more of two maximum,
+	 * it returns the first index found.
 	 * 
-	 * Funcion que dado un vector columna y el máximo de ese vector
-	 * devuelve el índice donde se encuentra el máximo, en caso de 
-	 * haber más de un máximo, devuelve el índice el primero que 
-	 * encuentra.
-	 * 
-	 * @param {Vector} vector
-	 * @param {Number, BigNumber} max
+	 * @param {Vector} vector - Column vector.
+	 * @param {Number|BigNumber} max - Maximum of the vector.
+	 * @return {Number} index - Index of the first maximum.
 	 * 
 	 * */
 	_getMaxIndex : function(vector, max) {
 		var size = math.subset(math.size(vector), math.index(0));
-		for(var i = 0; i < size; ++i) {
-			var value = math.subset(vector, math.index(i, 0));
+		for(var index = 0; index < size; ++index) {
+			var value = math.subset(vector, math.index(index, 0));
 			if( math.equal(value, max) ) {
-				return i;
+				return index;
 			}
 		}
 	},
 	
 	/*
-	 * Función que recibe una matriz A de la forma triangular superior y un vector
-	 * B como vector columna y devuelve la solución del sistema por medio de la 
-	 * sustitución regresiva. (Usado por la función solve)
+	 * Function that recives a matrix A in the upper triangular form, a B column vector
+	 * and return the linear solution system through the back substitution.
 	 * 
 	 * @param {Matrix} A
-	 * @param {Vector} B
+	 * @param {Vector} B - Column vector.
+	 * @return {Vector} X - Solution of the linear system.
 	 * 
 	 * */
 	_backSubstitution : function(A, B) {
@@ -51,12 +50,14 @@ solutionLinearSystem = {
 		return X;
 	},
 	
-	/* Función que soluciona el sistema de ecuaciones.
-	 * B debe ser dado como vector columna
-	 *  
-	 * @param {Matrix} A 
-	 * @param {Matrix} B 
-	 * @return {Matrix} res
+	/*
+	 * Function that solves the linear system by the gaussian elimination with pivoting.
+	 *
+	 * B should be given as a column vector.
+	 *
+	 * @param {Matrix} A
+	 * @param {Vector} B - Column vector.
+	 * @return {Vector} solutions - Solution of the linear system.
 	 * */
 	solve : function(A, B) {
 		var size = math.subset(math.size(A), math.index(0));
@@ -88,4 +89,4 @@ solutionLinearSystem = {
 		var B = math.subset(augmentedMatrix, math.index([0, size], size));
 		return this._backSubstitution(A, B);
 	}
-}
+};

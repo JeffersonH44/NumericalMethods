@@ -2,26 +2,17 @@
  * 
  */
 
-fit = {
+Fit = {
 	/*
-	 * Ajuste lineal de la forma y = Ax + B
+	 * Function that calculate the linear fit in the form f(x) = Ax + B and
+	 * return the A and B coefficients
 	 * 
-	 * @param {Vector} X
-	 * @param {Vector} Y
-	 * @return {Object} ret (Accediendo a los índices A y B)
+	 * @param {Vector} X - Vector of the x positions of the points.
+	 * @param {Vector} Y - Vector of the y positions of the points.
+	 * @return {Object} coefficients - Returns the coefficients of the function A and B.
+	 *
 	 * */
 	linearFit : function(X, Y) {
-		/*
-		var xmean = math.mean(X);
-		var ymean = math.mean(Y);
-		var sumx2 = math.multiply(math.add(X, -xmean), math.transpose(math.add(X, -xmean)));
-		var sumxy = math.multiply(math.add(Y, -ymean), math.transpose(math.add(X, -xmean)));
-		alert(sumx2);
-		alert(sumxy);
-		var A = math.divide(sumx2, sumxy);
-		var B = math.add(ymean, -math.multiply(A, xmean));
-		*/
-		
 		var x2 = math.sum(math.dotPow(X, 2));
 		var x = math.sum(X);
 		var y = math.sum(Y);
@@ -43,11 +34,13 @@ fit = {
 	},
 	
 	/*
-	 * Ajuste Potencial de la forma y = Ax^M con un M dado
+	 * Function that calculate the potential fit in the form f(x) = A*x^M
+	 * with a given M and return de A coefficient.
 	 * 
-	 * @param {Vector} X
-	 * @param {Vector} Y
-	 * @param {Number, BigNumber} M
+	 * @param {Vector} X - Vector of the x positions of the points.
+	 * @param {Vector} Y - Vector of the x positions of the points.
+	 * @param {Number, BigNumber} M - The exponent of the potential fit.
+	 * @return {Number|BigNumber} A - The A coefficient of the potential fit.
 	 * */
 	potentialFit : function(X, Y, M) {
 		var numerator = 0;
@@ -57,17 +50,21 @@ fit = {
 			numerator += math.multiply( math.pow(math.subset(X, math.index(i)), M), math.subset(Y, math.index(i)));
 			denominator += math.pow(math.subset(X, math.index(i)), math.multiply(2, M));
 		}
+
+        //TODO: remove this alerts
 		alert(numerator);
 		alert(denominator);
 		return math.divide(numerator, denominator);
 	},
 	
 	/* 
-	 * Linealización de la forma y = Ce^(A * x)
+	 * Function that calculate the linear fit in the form f(x) = Ce^(A * x) and
+	 * return the A and C coefficient of the given formula.
 	 * 
-	 * @param {Vector} X
-	 * @param {Vector} Y
-	 * @return {Object} ret
+	 * @param {Vector} X - Vector of the x positions of the points.
+	 * @param {Vector} Y - Vector of the y positions of the points.
+	 * @return {Object} coefficients - The A and C coefficients.
+	 *
 	 * */
 	linearization : function(X, Y) {
 		var result = this.linearFit(X, math.log(Y));
@@ -78,19 +75,25 @@ fit = {
 	},
 	
 	/*
-	 * Ajuste polinomial a un polinomio de grado M
+	 *
+	 * Function that return a constants of the M degree polynomial that
+	 * fit the given points, this constants is given from lower to higher
+	 * order of the polynomial.
 	 * 
-	 * @param {Vector} X
-	 * @param {Vector} Y
-	 * @param {Number, BigNumber} M 
+	 * @param {Vector} X - Vector of the x positions of the points.
+	 * @param {Vector} Y - Vector of the y positions of the points.
+	 * @param {Number|BigNumber} M - Degree of the polynomial.
+	 * @param {Vector} constants - Vector of constants of the function.
 	 * */
 	
-	polinomialFit : function(X, Y, M) {
+	polynomialFit : function(X, Y, M) {
 		M++;
+
 		var n = math.subset(math.size(X), math.index(0));
 		var F = math.zeros(n, M);
 		var B = math.zeros(M);
 		for(var k = 0; k < M; ++k) {
+            // TODO: unused variables.
 			var temp1 = math.subset(F, math.index([0, n], k));
 			var temp2 = math.transpose(math.dotPow(X, k));
 			F = math.subset(F, math.index([0, n], k), math.transpose(math.dotPow(X, k)));
@@ -98,18 +101,17 @@ fit = {
 		var transposeF = math.transpose(F);
 		var A = math.multiply(transposeF, F);
 		B = math.multiply(transposeF, math.transpose(Y));
-		
-		/*
-		 * Transponer el vector, no soportado por Mathjs
-		 * */
+
+        //vector transpose, not supported by mathjs
 		var size = math.subset(math.size(B), math.index(0));
-		var BTransposed = []
+		var BTransposed = [];
 		for(var i = 0; i < size; ++i) {
 			BTransposed[i] = [];
 			BTransposed[i][0] = math.subset(B, math.index(i));
 		}
 		B = math.matrix(BTransposed);
+
 		var constants = solutionLinearSystem.solve(A, B);
 		return constants;
 	}
-}
+};
