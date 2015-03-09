@@ -1,6 +1,5 @@
-/*
- * 
- * */
+var math = require("../lib/math");
+
 Polynomial = {
 		
 	/*

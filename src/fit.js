@@ -1,6 +1,5 @@
-/**
- * 
- */
+var math = require("../lib/math");
+require("../src/solutionLinearSystem");
 
 Fit = {
 	/*
@@ -22,7 +21,7 @@ Fit = {
 		var A = math.matrix([[x2, x], [x, n]]);
 		var B = math.matrix([[xy], [y]]);
 		
-		var result = solutionLinearSystem.solve(A, B);
+		var result = SolutionLinearSystem.solve(A, B);
 		
 		A = math.subset(result, math.index(0, 0));
 		B = math.subset(result, math.index(1, 0));
@@ -51,9 +50,6 @@ Fit = {
 			denominator += math.pow(math.subset(X, math.index(i)), math.multiply(2, M));
 		}
 
-        //TODO: remove this alerts
-		alert(numerator);
-		alert(denominator);
 		return math.divide(numerator, denominator);
 	},
 	
@@ -93,9 +89,6 @@ Fit = {
 		var F = math.zeros(n, M);
 		var B = math.zeros(M);
 		for(var k = 0; k < M; ++k) {
-            // TODO: unused variables.
-			var temp1 = math.subset(F, math.index([0, n], k));
-			var temp2 = math.transpose(math.dotPow(X, k));
 			F = math.subset(F, math.index([0, n], k), math.transpose(math.dotPow(X, k)));
 		}
 		var transposeF = math.transpose(F);

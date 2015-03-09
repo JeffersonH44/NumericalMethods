@@ -1,6 +1,5 @@
-/**
- * 
- */
+var math = require("../lib/math");
+
 Interpolate = {
 	
 	/*
@@ -40,8 +39,7 @@ Interpolate = {
 				}
 			}
 		}
-        //TODO: remove alert
-		alert(func);
+
 		return math.eval(func);
 		
 	},
@@ -66,8 +64,7 @@ Interpolate = {
 				D = math.subset(D, math.index(k, j), numerator / denominator);
 			}
 		}
-        // TODO: remove alert
-		alert(D);
+
 		var coefficients = math.zeros(lengthX);
 		for(var i = 0; i < lengthX; ++i) {
 			var value = math.subset(D, math.index(i, i));

@@ -1,5 +1,6 @@
+var math = require("../lib/math");
 
-var Integrals = {
+Integrals = {
 	/*
 	 * Function that calculates the integral given the simpson or trapezium
 	 * method.

@@ -1,6 +1,4 @@
-/*
- * 
- * */
+var math = require("../lib/math");
 
 NonLinearEquations = {
 	
