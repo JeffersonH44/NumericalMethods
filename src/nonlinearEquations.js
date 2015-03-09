@@ -20,23 +20,22 @@ NonLinearEquations = {
 			throw "Bisection method requires that f(a) and f(b) be of different sign.";
 		}
 		// maxIterations is an aproximation of the number of iterations that need the method to converge
-        // TODO: change operation to support mathjs BigNumber for all methods
-		var maxIterations = 1 + math.round((math.log(b - a) - math.log(delta))/math.log(2));
+		var maxIterations = math.add(1, math.round(math.divide(math.subtract(math.log( math.subtract(b, a)), math.log(delta)), math.log(2))));
 		for(var i = 0; i < maxIterations; ++i) {
-			root = (a + b) / 2;
+			root = math.divide(math.add(a, b), 2);
 			var yc = f(root);
-			if(yc == 0) {
+			if(math.equal(yc, 0)) {
 				a = root;
 				b = root;
 				break;
-			} else if(yc*yb > 0) {
+			} else if(math.larger(math.multiply(yc, yb), 0)) {
 				b = root;
 				yb = yc;
 			} else {
 				a = root;
 				ya = root;
 			}
-			if(b - a < delta)
+			if(math.smaller(math.subtract(b, a), delta))
 				break;
 		}
 		return root;
@@ -62,17 +61,17 @@ NonLinearEquations = {
 		var ya = f(a);
 		var yb = f(b);
 		var root;
-		if(ya * yb > 0) {
+		if(math.larger(math.multiply(ya, yb), 0)) {
 			throw "Bisection method requires that f(a) and f(b) be of different sign.";
 		}
 		for(var i = 0; i < maxIterations; ++i) {
-			dx = yb * (b - a)/(yb - ya);
-			root = b - dx;
-			ac = root - a;
+			dx = math.divide(math.multiply(yb, math.subtract(b, a)), math.subtract(yb, ya));
+			root = math.subtract(b, dx);
+			ac = math.subtract(root, a);
 			yc = f(root);
-			if (yc == 0) {
+			if (math.equal(yc, 0)) {
 				break;
-			} else if (yb * yc > 0) {
+			} else if (math.larger(math.multiply(yb, yc), 0)) {
 				b = root;
 				yb = yc;
 			} else {
@@ -80,7 +79,7 @@ NonLinearEquations = {
 				ya = yc;
 			}
 			dx = math.min(math.abs(dx), ac);
-			if (math.abs(dx) < delta || math.abs(yc) < epsilon)
+			if ( math.smaller(math.abs(dx), delta) || math.smaller(math.abs(yc), epsilon))
 				break;
 		}
 		return root;
@@ -103,12 +102,12 @@ NonLinearEquations = {
 	 * */
 	newtonMethod : function(f, df, p0, delta, epsilon, maxIterations) {
 		for(var i = 0; i < maxIterations; ++i) {
-			var p1 = p0- f(p0)/df(p0);
-			var absoluteError = math.abs(p1 - p0);
-			var relativeError = 2*absoluteError /(math.abs(p1) + delta);
+			var p1 = math.subtract(p0, math.divide(f(p0), df(p0)));
+			var absoluteError = math.abs(math.subtract(p1, p0));
+			var relativeError = math.divide(math.multiply(2, absoluteError), math.add(math.abs(p1), delta));
 			p0 = p1;
 			y = f(x);
-			if(absoluteError < delta || relativeError < delta || abs(y) < epsilon) {
+			if(math.smaller(absoluteError, delta) || math.smaller(relativeError, delta) || math.smaller(math.abs(y), epsilon)) {
 				break;
 			}
 		}
@@ -132,13 +131,13 @@ NonLinearEquations = {
 	 * */
 	secantMethod : function(f, p0, p1, delta, epsilon, maxIterations) {
 		for(var i = 0; i < maxIterations; ++i) {
-			var p2 = p1 - f(p1)*(p1 - p0)/(f(p1) - f(p0));
-			var absoluteError = math.abs(p2 - p1);
-			var relativeError = 2*relativeError/(math.abs(p2) + delta);
+			var p2 = math.subtract(p1, math.divide(math.multiply(f(p1), math.subtract(p1, p0)), (math.subtract(f(p1), f(p0)))));
+			var absoluteError = math.abs(math.subtract(p2, p1));
+			var relativeError = math.divide(math.multiply(2, absoluteError), math.add(math.abs(p2), delta));
 			p0 = p1;
 			p1 = p2;
 			y = f(p1);
-			if(absoluteError < delta || relativeError < delta || abs(y) < epsilon) {
+			if(math.smaller(absoluteError, delta) || math.smaller(relativeError, delta) || math.smaller(math.abs(y), epsilon)) {
 				break;
 			}
 		}
