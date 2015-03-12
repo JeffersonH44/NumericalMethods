@@ -104,7 +104,7 @@ Fit = {
 		}
 		B = math.matrix(BTransposed);
 
-		var constants = solutionLinearSystem.solve(A, B);
+		var constants = SolutionLinearSystem.solve(A, B);
 		return constants;
 	}
 };

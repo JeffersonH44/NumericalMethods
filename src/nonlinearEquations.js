@@ -106,7 +106,7 @@ NonLinearEquations = {
 			var absoluteError = math.abs(math.subtract(p1, p0));
 			var relativeError = math.divide(math.multiply(2, absoluteError), math.add(math.abs(p1), delta));
 			p0 = p1;
-			y = f(x);
+			y = f(p0);
 			if(math.smaller(absoluteError, delta) || math.smaller(relativeError, delta) || math.smaller(math.abs(y), epsilon)) {
 				break;
 			}

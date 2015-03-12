@@ -94,7 +94,6 @@ Derivate = {
 		switch(derivate) {
 			case 1:
 				if(!values[2] && !values[4]) {
-					// TODO: enviar un mejor mensaje
 					throw "f(-1) and f(+1) is not defined for h = " + h;
 				}
 				numerator = math.add(values[4], -values[2]);
@@ -102,23 +101,21 @@ Derivate = {
 				break;
 			case 2:
 				if(!values[2] && !values[4]) {
-					// TODO: enviar un mejor mensaje
 					throw "f(-1) and f(+1) is not defined for h = " + h;
 				}
 				numerator = math.add( math.add(values[4], -math.multiply(2, values[3])), values[2]);
 				denominator = math.pow(h, 2);
 				break;
 			case 3:
+                // Message doesn't work
 				if(!values[1] && !values[2] && !values[4] && !values[5]) {
-					// TODO: enviar un mejor mensaje
 					throw "the f(-2), f(-1), f(+1) and f(+2) is not defined for h = " + h;
 				}
-				numerator = math.add( values[5], math.add( -values[4], math.add( math.multiply(2, values[2]), -values[1] ) ) );
+				numerator = math.add( values[5], math.add( math.multiply(2, -values[4]), math.subtract( math.multiply(2, values[2]), values[1] ) ) );
 				denominator = math.multiply(2, math.pow(h, 3));
 				break;
 			case 4:
 				if(!values[1] && !values[2] && !values[4] && !values[5]) {
-					// TODO: enviar un mejor mensaje
 					throw "f(-2), f(-1), f(+1) and f(+2) is not defined for h = " + h;
 				}
 				var firstSum = math.add(values[5], -math.multiply(4, values[4]));
@@ -157,11 +154,9 @@ Derivate = {
 		var values = this._getPositions(X, Y, position, h);
 		var numerator;
 		var denominator;
-		alert(values);
 		switch(derivate) {
 			case 1:
 				if(!values[1] && !values[2] && !values[4] && !values[5]) {
-					// TODO: enviar un mejor mensaje
 					throw "f(-2), f(-1), f(+1) and f(+2) is not defined for h = " + h;
 				}
 				var firstSum = math.add(-values[5], math.multiply(values[4], 8));
@@ -171,7 +166,6 @@ Derivate = {
 				break;
 			case 2:
 				if(!values[1] && !values[2] && !values[4] && !values[5]) {
-					// TODO: enviar un mejor mensaje
 					throw "f(-2), f(-1), f(+1) and f(+2) is not defined for h = " + h;
 				}
 				var firstSum = math.add(-values[5], math.multiply(16, values[4]));
@@ -181,18 +175,16 @@ Derivate = {
 				break;
 			case 3:
 				if(!values[0] && !values[1] && !values[2] && !values[4] && !values[5] && !values[6] ) {
-					// TODO: enviar un mejor mensaje
 					throw "f(-3), f(-2), f(-1), f(+1), f(+2) and f(+3) is not defined for h = " + h;
 				}
 				var firstSum = math.add(-values[6], math.multiply(8, values[5]));
 				var secondSum = math.add(math.multiply(-13, values[4]), math.multiply(13, values[2]));
-				var thirdSum = math.add(multiply(-8, values[1]), values[0]);
+				var thirdSum = math.add(math.multiply(-8, values[1]), values[0]);
 				numerator = math.add(firstSum, math.add(secondSum, thirdSum));
 				denominator = math.multiply(8, math.pow(h, 3));
 				break;
 			case 4:
 				if(!values[0] && !values[1] && !values[2] && !values[4] && !values[5] && !values[6] ) {
-					// TODO: enviar un mejor mensaje
 					throw "f(-3), f(-2), f(-1), f(+1), f(+2) and f(+3) is not defined for h = " + h;
 				}
 				var firstSum = math.add(-values[6], math.multiply(12, values[5]));

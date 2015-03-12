@@ -31,7 +31,7 @@ Integrals = {
 	 * @param {Function} f - Function that we want to calculate the integral
      * @param {Number|BigNumber} a - Lower limit of the integral
      * @param {Number|BigNumber} b - Higher limit of the integral.
-     * @param {Number|BigNumber} M - Number of partitions to calculate the integral.
+     * @param {Number} M - Number of partitions to calculate the integral.
 	 * @return {Number|BigNumber} integral - Result of the integral by the compose trapezium rule
 	 * */
 	
@@ -55,13 +55,12 @@ Integrals = {
      * @param {Function} f - Function that we want to calculate the integral
      * @param {Number|BigNumber} a - Lower limit of the integral
      * @param {Number|BigNumber} b - Higher limit of the integral.
-     * @param {Number|BigNumber} M - Number of partitions to calculate the integral (must be odd).
+     * @param {Number} M - Number of partitions to calculate the integral (must be odd).
      * @return {Number|BigNumber} integral - Result of the integral by the compose trapezium rule
 	 * 
 	 * */
 	
 	simpsonRule : function(f, a, b, M) {
-        // TODO: change the way that check the parity of M
 		if(M % 2 == 0) {
 			throw "the simpson rule requires an odd number of subintervals";
 		}
